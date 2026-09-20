@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto · Postalbird</title>
+<meta name="description" content="¿Tienes alguna pregunta o sugerencia? Escríbenos y te respondemos lo antes posible.">
+<link rel="icon" href="img/marca.png" type="image/png">
+<link rel="preload" href="fonts/AmaticSC-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="contacto">
+<header id="site-header"></header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <span class="eyebrow">Escríbenos</span>
+      <h1>Contacto</h1>
+      <p>¿Alguna pregunta, sugerencia o problema con un pedido? Cuéntanos y te respondemos lo antes posible.</p>
+    </div>
+
+    <div class="two-col" style="padding-bottom:60px">
+      <form id="cform" novalidate>
+        <div class="field"><label for="k_nombre">Tu nombre</label><input type="text" id="k_nombre" name="k_nombre" autocomplete="name" required></div>
+        <div class="field"><label for="k_email">Tu correo electrónico</label><input type="email" id="k_email" name="k_email" autocomplete="email" required></div>
+        <div class="field"><label for="k_asunto">Motivo</label>
+          <select id="k_asunto" name="k_asunto"><option>Duda sobre una postal</option><option>Un pedido que ya he hecho</option><option>Sugerencia</option><option>Otro motivo</option></select></div>
+        <div class="field"><label for="k_msg">Mensaje <span class="opt">(si es sobre un pedido, indica su número)</span></label><textarea id="k_msg" name="k_msg" required></textarea></div>
+        <div class="hp" aria-hidden="true"><label>No rellenar<input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
+        <div class="field"><label class="check"><input type="checkbox" id="k_ok" name="k_ok"><span>He leído la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y acepto que usen mis datos para responderme.</span></label></div>
+        <button class="btn" type="submit">Enviar mensaje</button>
+        <div id="kmsg" role="alert"></div>
+      </form>
+      <div class="prose">
+        <h3>Otras formas de contactar</h3>
+        <p>Puedes escribirnos directamente a<br><a id="mail" href="#"></a></p>
+        <p class="muted">Si tu duda es sobre un pedido, indícanos el número (empieza por «PB-») para poder ayudarte antes.</p>
+        <p><a href="como-funciona.html#faq">Mira las preguntas frecuentes</a>: quizá ya está tu respuesta.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="js/config.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+  (function () {
+    const $ = PB.$, C = PB.config, f = $('#cform'), out = $('#kmsg');
+    $('#mail').href = 'mailto:' + C.email; $('#mail').textContent = C.email;
+    const show = (t, ok) => (out.innerHTML = '<div class="msg ' + (ok ? 'ok-box' : 'err-box') + '">' + t + '</div>');
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (f.web.value) return; // trampa para robots
+      const n = f.k_nombre.value.trim(), m = f.k_email.value.trim(), t = f.k_msg.value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m) || t.length < 5) return show('Rellena tu nombre, un correo válido y tu mensaje.');
+      if (!f.k_ok.checked) return show('Marca la casilla para aceptar la política de privacidad.');
+      const btn = f.querySelector('button[type=submit]'); btn.disabled = true;
+      const asunto = 'Contacto web: ' + f.k_asunto.value;
+      const r = await PB.enviar({ asunto, mensaje: t, nombre: n, email: m });
+      btn.disabled = false;
+      if (r.ok) { f.reset(); show('¡Mensaje enviado! Te responderemos lo antes posible.', true); }
+      else if (r.motivo === 'no-configurado') {
+        show('El formulario todavía no está conectado. <a href="mailto:' + C.email + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(t) + '">Pulsa aquí para escribirnos desde tu programa de correo</a>.');
+      } else show('No hemos podido enviar el mensaje. Escríbenos directamente a <a href="mailto:' + C.email + '">' + C.email + '</a>.');
+    });
+  })();
+</script>
+</body>
+</html>

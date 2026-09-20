@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo funciona, envíos y precios · Postalbird</title>
+<meta name="description" content="Elige una postal, escribe tu dedicatoria y nosotros la imprimimos con letra manuscrita y la enviamos por correo. Precios, tarifas de envío y preguntas frecuentes.">
+<link rel="icon" href="img/marca.png" type="image/png">
+<link rel="preload" href="fonts/AmaticSC-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="como">
+<header id="site-header"></header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <span class="eyebrow">Es muy fácil</span>
+      <h1>Cómo funciona</h1>
+      <p>Recuperamos la tradición de enviar postales por correo. Tú pones las palabras; nosotros nos encargamos de todo lo demás.</p>
+    </div>
+
+    <div class="steps" style="margin-top:44px">
+      <div class="step"><h3>Elige tu postal</h3><p>Mira el <a href="tarjetas.html">catálogo</a> y quédate con la que mejor diga lo que quieres decir.</p></div>
+      <div class="step"><h3>Escribe y personaliza</h3><p>Redacta tu dedicatoria (hasta <span data-max></span> caracteres), elige la letra y la tinta, y comprueba en pantalla cómo quedará.</p></div>
+      <div class="step"><h3>Dinos a quién</h3><p>Rellena la dirección del destinatario, elige el tipo de envío y paga de forma segura con PayPal.</p></div>
+    </div>
+    <p class="center" style="margin-top:34px"><b>Y nosotros hacemos el resto:</b> imprimimos tu texto con letra manuscrita, preparamos la postal con su sobre y la enviamos por correo postal.</p>
+  </div>
+
+  <section id="envios">
+    <div class="narrow">
+      <h2>Precios y envíos</h2>
+      <table class="price-table" aria-label="Precios">
+        <tr><td>Tarjeta postal con dedicatoria</td><td data-price></td></tr>
+        <tr><td>Envío ordinario (España)</td><td>Incluido</td></tr>
+        <tr><td>Nacex, mensajería urgente (España)</td><td data-nacex></td></tr>
+        <tr><td>Envío certificado (resto de países)</td><td data-cert></td></tr>
+      </table>
+      <p class="muted">El precio final se muestra siempre antes de pagar. El envío ordinario va por correo postal; Nacex es más rápido y con seguimiento; el certificado es el que usamos para enviar fuera de España.</p>
+      <p class="muted">Si necesitas que la postal llegue para una fecha concreta (un cumpleaños, por ejemplo), indícalo al hacer el pedido y la enviaremos con tiempo. Los plazos de entrega dependen del servicio de correos y del destino.</p>
+    </div>
+  </section>
+
+  <section class="band" id="faq">
+    <div class="narrow">
+      <h2 class="center">Preguntas frecuentes</h2>
+      <details><summary>¿La dedicatoria está escrita a mano de verdad?</summary><p>Tu texto se imprime con una tipografía de letra manuscrita, en tinta de color, para que quede como si lo hubieras escrito tú a mano. Puedes elegir entre varios tipos de letra y ver el resultado antes de pagar.</p></details>
+      <details><summary>¿Cuántos caracteres puede tener mi mensaje?</summary><p>Hasta <span data-max></span> caracteres, con espacios y saltos de línea. En pantalla verás cómo queda: si el texto es largo, la letra se ajusta sola para que quepa.</p></details>
+      <details><summary>¿Puedo enviar la postal a otro país?</summary><p>Sí. Fuera de España usamos correo certificado. Al elegir el país del destinatario, verás automáticamente la tarifa que corresponde.</p></details>
+      <details><summary>¿La postal lleva remitente?</summary><p>Por defecto, no. Si quieres que en el sobre figure tu nombre y dirección, marca la casilla «Poner un remitente en el sobre» al rellenar los datos del destinatario.</p></details>
+      <details><summary>¿Cómo puedo pagar?</summary><p>Con PayPal. No hace falta tener cuenta de PayPal: desde su ventana de pago también puedes pagar con tarjeta. Nosotros no vemos ni guardamos los datos de tu tarjeta.</p></details>
+      <details><summary>¿Puedo ver cómo quedará antes de pagar?</summary><p>Sí. A la derecha del formulario tienes una vista previa de la dedicatoria, del sobre y de la portada de la postal, que se actualiza mientras escribes.</p></details>
+      <details><summary>¿En qué papel están impresas?</summary><p>Nuestras postales se imprimen en papel 100 % reciclado.</p></details>
+      <details><summary>Me he equivocado con la dirección o el mensaje, ¿qué hago?</summary><p>Escríbenos cuanto antes desde la página de <a href="contacto.html">contacto</a>, indicando tu número de pedido. Si todavía no la hemos preparado, lo corregimos sin problema.</p></details>
+      <details><summary>¿Puedo cancelar o devolver mi pedido?</summary><p>Como cada postal se personaliza con tu mensaje, no admite desistimiento una vez confeccionada. Si llega dañada o hay algún error nuestro, la reponemos o te devolvemos el dinero. Más detalles en las <a href="condiciones.html">condiciones de compra</a>.</p></details>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap"><h2>¿Empezamos?</h2><p>Elige tu postal y en unos minutos estará de camino.</p><a class="btn" href="tarjetas.html">Ver las postales</a></div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="js/config.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+  (function () {
+    const C = PB.config, get = (id) => C.envios.find((e) => e.id === id);
+    document.querySelectorAll('[data-max]').forEach((e) => (e.textContent = C.maxCaracteres));
+    document.querySelectorAll('[data-price]').forEach((e) => (e.textContent = PB.money(C.precioPostal)));
+    document.querySelectorAll('[data-nacex]').forEach((e) => (e.textContent = '+ ' + PB.money(get('nacex').precio)));
+    document.querySelectorAll('[data-cert]').forEach((e) => (e.textContent = '+ ' + PB.money(get('certificado').precio)));
+  })();
+</script>
+</body>
+</html>

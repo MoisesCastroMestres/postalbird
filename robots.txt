@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /imprimir.html
+Disallow: /personalizar.html
+Allow: /
+
+# Cambia la dirección por la de tu web y vuelve a generar el sitemap (mira LEEME.md)
+Sitemap: https://www.postalbird.es/sitemap.xml

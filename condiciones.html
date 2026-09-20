@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Condiciones de compra · Postalbird</title>
+<meta name="description" content="Condiciones de compra de las tarjetas postales personalizadas de Postalbird.">
+<link rel="icon" href="img/marca.png" type="image/png">
+<link rel="preload" href="fonts/AmaticSC-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="legal">
+<header id="site-header"></header>
+<main>
+  <div class="narrow legal" style="padding:44px 0 70px">
+    <div class="notice"><b>Borrador para completar.</b> Revisa los puntos marcados en amarillo (IVA, plazos) y borra este aviso antes de publicar la web. Es una plantilla orientativa, no asesoramiento legal: conviene que la revise un profesional.</div>
+    <h1>Condiciones de compra</h1>
+
+    <h2>1. Quiénes somos</h2>
+    <p>El vendedor es <span class="todo">[NOMBRE Y APELLIDOS O RAZÓN SOCIAL]</span>, NIF <span class="todo">[NIF]</span>, con domicilio en <span class="todo">[DIRECCIÓN]</span> (en adelante, «Postalbird»). Contacto: <a class="mail" href="#"></a>. Ver también el <a href="aviso-legal.html">aviso legal</a>.</p>
+
+    <h2>2. Qué vendemos</h2>
+    <p>Tarjetas postales personalizadas con la dedicatoria que indica el cliente, impresa con letra manuscrita y enviada por correo postal a la dirección de entrega que el cliente designe. Las fotografías de la web son orientativas del modelo elegido.</p>
+
+    <h2>3. Precios</h2>
+    <p>Los precios se expresan en euros y se muestran antes de confirmar el pedido: el precio de la postal (<span data-price></span>) más, en su caso, el coste del envío elegido. <span class="todo">[Indica si los precios incluyen IVA u otros impuestos.]</span> El envío ordinario dentro de España está incluido en el precio.</p>
+
+    <h2>4. Cómo comprar</h2>
+    <p>El cliente elige la postal, escribe su dedicatoria (máximo <span data-max></span> caracteres), indica los datos del destinatario y el tipo de envío, revisa la vista previa y paga. El contrato se formaliza cuando se confirma el pago. Es responsabilidad del cliente revisar la ortografía del mensaje y la exactitud de la dirección antes de pagar: imprimimos el texto tal y como se ha escrito.</p>
+
+    <h2>5. Pago</h2>
+    <p>El pago se realiza a través de PayPal, que permite pagar con cuenta PayPal o con tarjeta. Postalbird no tiene acceso a los datos de la tarjeta.</p>
+
+    <h2>6. Envío y entrega</h2>
+    <p>Los pedidos se envían por correo postal a la dirección indicada. Están disponibles el <b>envío ordinario</b> (incluido, solo España), <b>Nacex</b> (mensajería, solo España, con coste adicional) y <b>certificado</b> (resto de países, con coste adicional). <span class="todo">[Indica aquí el plazo habitual de preparación y envío, p. ej. «entre X y Y días laborables».]</span> Los plazos de entrega dependen del servicio de correos elegido y del destino, y pueden verse afectados por circunstancias ajenas a Postalbird. Si el cliente indica una fecha de envío deseada, haremos lo posible por respetarla.</p>
+
+    <h2>7. Derecho de desistimiento</h2>
+    <p>De acuerdo con el artículo 103.c del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, <b>el derecho de desistimiento no es aplicable</b> al suministro de bienes confeccionados conforme a las especificaciones del consumidor o claramente personalizados. Al incluir cada postal la dedicatoria del cliente, una vez confeccionada no admite desistimiento.</p>
+    <p>Aun así, si aún no hemos empezado a preparar tu pedido, escríbenos cuanto antes y trataremos de cancelarlo o modificarlo.</p>
+
+    <h2>8. Errores, daños y no entrega</h2>
+    <p>Si la postal llega dañada, si hay un error nuestro en el texto o la dirección respecto a lo que indicaste, o si no llega por causa imputable al envío, escríbenos indicando tu número de pedido (y, si es posible, una fotografía). Repondremos la postal o te devolveremos el importe. Si el error estuviera en los datos facilitados por el cliente (dirección incorrecta, texto con faltas), no podemos asumir su reposición gratuita.</p>
+
+    <h2>9. Garantía legal</h2>
+    <p>Los consumidores gozan de los derechos y garantías reconocidos por la legislación vigente respecto a productos que no se ajusten al contrato.</p>
+
+    <h2>10. Contenido de los mensajes</h2>
+    <p>No tramitaremos pedidos cuyo mensaje sea ilícito, ofensivo, amenazante, discriminatorio o vulnere derechos de terceros. En ese caso, reembolsaremos el importe abonado.</p>
+
+    <h2>11. Datos personales</h2>
+    <p>Tratamos tus datos según nuestra <a href="privacidad.html">política de privacidad</a>.</p>
+
+    <h2>12. Reclamaciones y ley aplicable</h2>
+    <p>Puedes dirigirnos cualquier queja o reclamación a <a class="mail" href="#"></a>. Disponemos de hojas de reclamaciones a tu disposición. Estas condiciones se rigen por la legislación española.</p>
+  </div>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="js/config.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script>
+  document.querySelectorAll('.mail').forEach(function (a) { a.href = 'mailto:' + PB.config.email; a.textContent = PB.config.email; });
+  document.querySelectorAll('[data-price]').forEach(function (e) { e.textContent = PB.money(PB.config.precioPostal); });
+  document.querySelectorAll('[data-max]').forEach(function (e) { e.textContent = PB.config.maxCaracteres; });
+</script>
+</body>
+</html>

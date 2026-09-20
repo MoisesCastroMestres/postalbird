@@ -1,0 +1,12 @@
+# Archivos del sistema y temporales
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp
+*.bak
+*~
+
+# Copias de seguridad y datos privados: nunca deben subirse
+*.tar.gz
+*.sql
+wp-config.php

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impresión de pedidos · Postalbird</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/marca.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/imprimir.css">
+</head>
+<body class="tool">
+<header class="tool-head">
+  <div class="wrap">
+    <a href="index.html" class="brand"><img src="img/logo.png" alt="Postalbird" height="40"></a>
+    <span class="hand" style="font-size:1.4rem">Panel de impresión · uso interno</span>
+  </div>
+</header>
+
+<main class="wrap tool-main">
+  <aside class="queue">
+    <h2>Pedidos</h2>
+    <details id="addBox" open>
+      <summary>➕ Añadir un pedido</summary>
+      <p class="hint">Pega el <b>código del pedido</b> o el <b>correo completo</b> que te llegó (puedes pegar varios a la vez).</p>
+      <textarea id="paste" rows="4" placeholder="Pega aquí el correo o el código…" aria-label="Pegar pedido"></textarea>
+      <button class="btn small" id="addBtn" type="button">Añadir</button>
+      <div id="addMsg" class="hint" role="status"></div>
+    </details>
+    <div class="filters" id="filters">
+      <button class="chip on" data-f="todos" type="button">Todos</button>
+      <button class="chip" data-f="pendiente" type="button">Pendientes</button>
+      <button class="chip" data-f="impreso" type="button">Impresos</button>
+      <button class="chip" data-f="enviado" type="button">Enviados</button>
+    </div>
+    <ul id="list" class="olist"></ul>
+    <div class="qbar">
+      <button class="btn ghost small" id="csvBtn" type="button">Exportar CSV</button>
+      <button class="btn ghost small" id="clearBtn" type="button">Quitar enviados</button>
+    </div>
+  </aside>
+
+  <section class="work" id="work">
+    <div class="empty" id="none"><h3>Selecciona o añade un pedido</h3><p class="muted">Cuando entre un pedido, abre el enlace del correo o pega aquí su código.</p></div>
+
+    <div id="detail" hidden>
+      <div class="dhead">
+        <div>
+          <h2 id="dTitle"></h2>
+          <p class="muted" id="dMeta"></p>
+        </div>
+        <span class="badge" id="dState"></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="printInt" type="button">🖨 Imprimir dedicatoria</button>
+        <button class="btn" id="printEnv" type="button">✉ Imprimir sobre</button>
+        <button class="btn ghost small" id="markPrinted" type="button">Marcar como impreso</button>
+        <button class="btn ghost small" id="markSent" type="button">Marcar como enviado</button>
+        <button class="btn ghost small" id="delBtn" type="button">Eliminar</button>
+      </div>
+
+      <details class="cfg" id="cfg">
+        <summary>⚙ Ajustes de impresión</summary>
+        <div class="cfg-grid">
+          <div class="field"><label for="cSize">Tamaño de la hoja</label>
+            <select id="cSize"><option value="p">Pequeña (23 × 15,5 cm)</option><option value="g">Grande (24 × 16,5 cm)</option></select></div>
+          <div class="field"><label for="cFold">Pliegue de la tarjeta</label>
+            <select id="cFold"><option value="v">Vertical (texto en la mitad derecha)</option><option value="h">Horizontal (texto en la mitad de abajo)</option></select></div>
+          <div class="field"><label for="cPt">Tamaño de letra: <b id="cPtV"></b></label>
+            <input type="range" id="cPt" min="10" max="28" step="0.5"><div class="hint">Si el texto no cabe, se reduce solo.</div></div>
+          <div class="field"><label for="cInk">Tinta</label>
+            <select id="cInk"><option value="pedido">La elegida en el pedido</option><option value="azul">Azul</option><option value="negro">Negro</option><option value="granate">Granate</option></select></div>
+          <div class="field"><label for="cX">Mover a la derecha (mm): <b id="cXV"></b></label><input type="range" id="cX" min="-15" max="15" step="0.5"></div>
+          <div class="field"><label for="cY">Mover hacia abajo (mm): <b id="cYV"></b></label><input type="range" id="cY" min="-15" max="15" step="0.5"></div>
+        </div>
+        <p class="hint">Haz una prueba en un folio y ajusta los milímetros según cómo salga tu impresora. Los ajustes se guardan en este navegador. Al imprimir, elige <b>escala 100 %</b> (sin «ajustar a página») y márgenes «ninguno».</p>
+      </details>
+
+      <div class="sheets">
+        <figure class="sheet-wrap int" id="wrapInt">
+          <div class="scaler"><div class="sheet" id="sheetInt"><div class="guide"></div><div class="textbox hw" id="pTxt"></div></div></div>
+          <figcaption>Dedicatoria — <span id="capInt"></span></figcaption>
+        </figure>
+        <figure class="sheet-wrap env" id="wrapEnv">
+          <div class="scaler"><div class="sheet" id="sheetEnv"><div class="from hw" id="eFrom"></div><div class="to hw" id="eTo"></div></div></div>
+          <figcaption>Sobre — 18 × 12,5 cm</figcaption>
+        </figure>
+      </div>
+
+      <div class="info-grid">
+        <div class="card"><h3>Destinatario</h3><pre id="iDest"></pre></div>
+        <div class="card"><h3>Cliente</h3><pre id="iCli"></pre></div>
+        <div class="card"><h3>Pedido</h3><pre id="iPed"></pre></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style id="pageStyle"></style>
+<script src="js/config.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script src="js/imprimir.js"></script>
+</body>
+</html>

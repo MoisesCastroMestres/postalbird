@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personaliza tu postal · Postalbird</title>
+<meta name="description" content="Escribe tu dedicatoria, elige la letra y dinos a quién enviamos tu postal.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/marca.png" type="image/png">
+<link rel="preload" href="fonts/AmaticSC-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/LaBelleAurore.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="tarjetas">
+<header id="site-header"></header>
+
+<main>
+  <div class="wrap" id="app">
+    <div class="page-head"><span class="eyebrow">Personaliza tu postal</span><h1>Escribe lo que quieras decirle</h1></div>
+
+    <div class="editor" id="editor">
+      <div class="form-col">
+        <ol class="stepper" id="stepper" style="list-style:none;padding:0;margin:0 0 22px">
+          <li style="display:contents"><button type="button" data-go="1"><b>1</b>Mensaje</button></li>
+          <li style="display:contents"><button type="button" data-go="2"><b>2</b>Destino</button></li>
+          <li style="display:contents"><button type="button" data-go="3"><b>3</b>Envío</button></li>
+          <li style="display:contents"><button type="button" data-go="4"><b>4</b>Pago</button></li>
+        </ol>
+
+        <div class="selected-card" id="chosen"></div>
+
+        <form id="form" novalidate autocomplete="off">
+          <!-- PASO 1 -->
+          <div class="panel on" data-step="1">
+            <h2>Tu dedicatoria</h2>
+            <div class="field">
+              <label for="msg">Escribe aquí tu mensaje</label>
+              <textarea id="msg" name="msg" maxlength="400" placeholder="Querida Ana:&#10;&#10;Feliz cumpleaños, que sepas que…&#10;&#10;Un abrazo,&#10;Luis" required></textarea>
+              <div class="counter" id="counter" aria-live="polite">0 / 400</div>
+            </div>
+            <div class="field">
+              <span class="lbl">Tipo de letra</span>
+              <div class="fonts" id="fonts" role="radiogroup" aria-label="Tipo de letra"></div>
+            </div>
+            <div class="field">
+              <span class="lbl">Color de la tinta</span>
+              <div class="inks" id="inks" role="radiogroup" aria-label="Color de la tinta"></div>
+            </div>
+            <div class="field">
+              <label for="fecha">¿Cuándo quieres que la enviemos? <span class="opt">(opcional)</span></label>
+              <input type="date" id="fecha" name="fecha">
+              <div class="hint">Si tiene que llegar para una fecha concreta (un cumpleaños, por ejemplo), indícala y la enviamos con tiempo. Si lo dejas vacío, la enviamos lo antes posible.</div>
+            </div>
+          </div>
+
+          <!-- PASO 2 -->
+          <div class="panel" data-step="2">
+            <h2>¿A quién se la enviamos?</h2>
+            <div class="field"><label for="d_nombre">Nombre y apellidos del destinatario</label><input type="text" id="d_nombre" name="d_nombre" autocomplete="off" required></div>
+            <div class="field"><label for="d_dir1">Dirección</label><input type="text" id="d_dir1" name="d_dir1" placeholder="Calle, número" autocomplete="off" required></div>
+            <div class="field"><label for="d_dir2">Piso, puerta, escalera… <span class="opt">(opcional)</span></label><input type="text" id="d_dir2" name="d_dir2" autocomplete="off"></div>
+            <div class="row r3">
+              <div class="field"><label for="d_cp">Código postal</label><input type="text" id="d_cp" name="d_cp" inputmode="numeric" autocomplete="off" required></div>
+              <div class="field"><label for="d_ciudad">Población</label><input type="text" id="d_ciudad" name="d_ciudad" autocomplete="off" required></div>
+            </div>
+            <div class="row">
+              <div class="field"><label for="d_prov">Provincia <span class="opt">(opcional)</span></label><input type="text" id="d_prov" name="d_prov" autocomplete="off"></div>
+              <div class="field"><label for="d_pais">País</label><select id="d_pais" name="d_pais"></select></div>
+            </div>
+            <div class="field">
+              <label class="check"><input type="checkbox" id="r_on" name="r_on"><span>Poner un remitente en el sobre <span class="muted">(por defecto, el sobre no lleva remitente)</span></span></label>
+            </div>
+            <div class="field" id="r_box" hidden>
+              <label for="r_txt">Remitente</label>
+              <textarea id="r_txt" name="r_txt" style="min-height:90px" maxlength="200" placeholder="Tu nombre&#10;Tu dirección&#10;CP Población"></textarea>
+            </div>
+          </div>
+
+          <!-- PASO 3 -->
+          <div class="panel" data-step="3">
+            <h2>Envío y tus datos</h2>
+            <div class="field"><span class="lbl">Forma de envío</span><div class="opts" id="envios" role="radiogroup" aria-label="Forma de envío"></div></div>
+            <div class="field"><label for="c_nombre">Tu nombre</label><input type="text" id="c_nombre" name="c_nombre" autocomplete="name" required></div>
+            <div class="row">
+              <div class="field"><label for="c_email">Tu correo electrónico</label><input type="email" id="c_email" name="c_email" autocomplete="email" required></div>
+              <div class="field"><label for="c_tel">Teléfono <span class="opt">(opcional)</span></label><input type="tel" id="c_tel" name="c_tel" autocomplete="tel"></div>
+            </div>
+            <div class="field"><label for="notas">¿Algo más que debamos saber? <span class="opt">(opcional)</span></label><textarea id="notas" name="notas" style="min-height:80px" maxlength="300"></textarea></div>
+          </div>
+
+          <!-- PASO 4 -->
+          <div class="panel" data-step="4">
+            <h2>Revisa y paga</h2>
+            <div class="summary" id="summary"></div>
+            <div class="field">
+              <label class="check"><input type="checkbox" id="acepto" name="acepto"><span>He leído y acepto las <a href="condiciones.html" target="_blank" rel="noopener">condiciones de compra</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
+            </div>
+            <div id="demoNote" class="demo-note" hidden><b>Modo prueba.</b> El pago con PayPal todavía no está configurado, así que <b>no se cobra nada</b>. Puedes recorrer todo el proceso para ver cómo funciona.</div>
+            <div id="paypal"></div>
+            <button type="button" class="btn" id="demoBtn" hidden>Simular pedido (sin pago)</button>
+            <div id="payMsg" role="alert"></div>
+          </div>
+
+          <div class="nav-steps">
+            <button type="button" class="btn ghost" id="prev">← Atrás</button>
+            <button type="button" class="btn" id="next">Siguiente →</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="preview" aria-label="Vista previa de tu postal">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-view="dedic" class="on">Dedicatoria</button>
+          <button type="button" role="tab" data-view="sobre">Sobre</button>
+          <button type="button" role="tab" data-view="postal">Postal</button>
+        </div>
+        <div class="stage">
+          <div class="view on" id="v-dedic"><div class="paper" id="paper"><div class="hw" id="hwText"></div></div></div>
+          <div class="view" id="v-sobre">
+            <div class="envelope" id="envelope">
+              <div class="from hw" id="envFrom"></div>
+              <div class="sello">SELLO</div>
+              <div class="to hw" id="envTo"></div>
+            </div>
+          </div>
+          <div class="view" id="v-postal"><div class="cover"><img id="coverImg" alt="Portada de la postal"></div></div>
+          <p class="stage-cap" id="cap">Así se verá tu dedicatoria</p>
+        </div>
+        <p class="center" style="margin:14px 0 0"><span class="muted">Total:</span> <b id="totalMini" style="font-size:1.3rem;color:var(--red-d)"></b></p>
+      </aside>
+    </div>
+
+    <div id="done" hidden></div>
+  </div>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="js/config.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/site.js"></script>
+<script src="js/editor.js"></script>
+</body>
+</html>
