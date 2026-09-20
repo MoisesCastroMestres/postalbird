@@ -205,7 +205,6 @@
   async function complete(pago) {
     if (sent) return; sent = true;
     const order = buildOrder(pago);
-    const list = PB.store.get('pb_pedidos', []); list.unshift(order); PB.store.set('pb_pedidos', list.slice(0, 20));
     try { sessionStorage.removeItem(DRAFT); } catch (e) { /* nada */ }
     const res = await PB.enviar({ asunto: 'Pedido ' + order.ref + ' · ' + p.name, mensaje: PB.orderText(order), nombre: order.cliente.nombre, email: order.cliente.email });
     showDone(order, res, pago.metodo !== 'PayPal');
@@ -215,13 +214,13 @@
     let extra = '';
     if (!res.ok) {
       extra = '<div class="msg ' + (demo ? 'ok-box' : 'err-box') + '" style="text-align:left">' +
-        (demo ? '<b>Modo prueba:</b> el pedido no se ha enviado a nadie porque aún no has configurado el correo de pedidos (mira el archivo LEEME.md).'
+        (demo ? '<b>Es una demostración:</b> el pedido no se ha enviado a nadie y no se ha guardado ningún dato personal.'
               : '<b>Tu pago se ha realizado correctamente</b>, pero no hemos podido avisarnos automáticamente. Por favor, envíanos el pedido pulsando el botón de abajo (o copia el código y mándalo a ' + PB.esc(C.email) + ').') + '</div>' +
-        (demo ? '<p><a class="btn small" href="' + PB.printLink(order) + '" target="_blank" rel="noopener">Ver la hoja de impresión de este pedido</a></p>'
+        (demo ? '<p><a class="btn small" href="' + PB.printLink(order) + '" target="_blank" rel="noopener">Ver cómo lo imprimiríamos</a></p>'
               : '<p><a class="btn" href="' + PB.mailtoPedido(order) + '">Enviar el pedido por correo</a></p><textarea class="code-box" readonly aria-label="Código del pedido">' + PB.encode(order) + '</textarea>');
     }
     box.innerHTML = '<div class="narrow"><div class="done-card"><span class="eyebrow">¡Gracias, ' + PB.esc(order.cliente.nombre.split(' ')[0]) + '!</span>' +
-      '<h1 style="font-size:3.4rem">' + (demo ? 'Pedido de prueba completado' : '¡Pedido recibido!') + '</h1>' +
+      '<h1 style="font-size:3.4rem">' + (demo ? 'Pedido de demostración completado' : '¡Pedido recibido!') + '</h1>' +
       '<p>Número de pedido: <b>' + order.ref + '</b></p>' +
       '<p>' + (res.ok ? 'Ya tenemos tu pedido. Imprimiremos tu dedicatoria con letra manuscrita y enviaremos la postal a <b>' + PB.esc(order.destinatario.nombre) + '</b>.' :
         'Postal «' + PB.esc(order.postal.nombre) + '» para <b>' + PB.esc(order.destinatario.nombre) + '</b>.') + '</p>' +
@@ -231,6 +230,7 @@
   }
 
   /* ---------- Arranque ---------- */
+  if (PB.demo) PB.$$('[data-demo]').forEach((e) => (e.hidden = false));
   drawShipping(); loadDraft(); drawShipping(); $('#r_box').hidden = !f.r_on.checked;
   go(1);
 })();

@@ -21,6 +21,7 @@
     const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
     document.body.appendChild(t); setTimeout(() => t.remove(), 2600);
   };
+  PB.demo = !(C.paypal && C.paypal.clientId);   // sin PayPal configurado = sitio de demostración
   PB.baseUrl = () => (C.urlPublica ? C.urlPublica.replace(/\/$/, '') + '/' : new URL('.', location.href).href);
 
   /* ---------- Opciones de personalización ---------- */
@@ -127,7 +128,10 @@
 
   function headerHTML(page) {
     const cur = (n) => (page === n ? ' aria-current="page"' : '');
-    return '<div class="topbar">Papel <b>100 % reciclado</b> · Dedicatoria con letra manuscrita, enviada a su buzón · Desde <b>' + PB.money(C.precioPostal) + '</b></div>' +
+    const top = PB.demo
+      ? '<b>Sitio de demostración</b> · No se realizan compras reales'
+      : 'Papel <b>100 % reciclado</b> · Dedicatoria con letra manuscrita, enviada a su buzón · Desde <b>' + PB.money(C.precioPostal) + '</b>';
+    return '<div class="topbar">' + top + '</div>' +
       '<div class="site-header"><div class="wrap">' +
       '<a class="brand" href="index.html" aria-label="Postalbird, inicio"><img src="img/logo.png" alt="Postalbird" width="180" height="50"></a>' +
       '<button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>' +

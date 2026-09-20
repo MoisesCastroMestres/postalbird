@@ -56,6 +56,7 @@
           <!-- PASO 2 -->
           <div class="panel" data-step="2">
             <h2>¿A quién se la enviamos?</h2>
+            <div class="demo-note" data-demo hidden><b>Es una demostración:</b> no escribas datos reales. No se envía a nadie y no se guarda en ningún servidor.</div>
             <div class="field"><label for="d_nombre">Nombre y apellidos del destinatario</label><input type="text" id="d_nombre" name="d_nombre" autocomplete="off" required></div>
             <div class="field"><label for="d_dir1">Dirección</label><input type="text" id="d_dir1" name="d_dir1" placeholder="Calle, número" autocomplete="off" required></div>
             <div class="field"><label for="d_dir2">Piso, puerta, escalera… <span class="opt">(opcional)</span></label><input type="text" id="d_dir2" name="d_dir2" autocomplete="off"></div>
@@ -79,6 +80,7 @@
           <!-- PASO 3 -->
           <div class="panel" data-step="3">
             <h2>Envío y tus datos</h2>
+            <div class="demo-note" data-demo hidden><b>Es una demostración:</b> no escribas tu correo ni tu teléfono reales. Puedes poner datos inventados.</div>
             <div class="field"><span class="lbl">Forma de envío</span><div class="opts" id="envios" role="radiogroup" aria-label="Forma de envío"></div></div>
             <div class="field"><label for="c_nombre">Tu nombre</label><input type="text" id="c_nombre" name="c_nombre" autocomplete="name" required></div>
             <div class="row">
@@ -95,7 +97,7 @@
             <div class="field">
               <label class="check"><input type="checkbox" id="acepto" name="acepto"><span>He leído y acepto las <a href="condiciones.html" target="_blank" rel="noopener">condiciones de compra</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
             </div>
-            <div id="demoNote" class="demo-note" hidden><b>Modo prueba.</b> El pago con PayPal todavía no está configurado, así que <b>no se cobra nada</b>. Puedes recorrer todo el proceso para ver cómo funciona.</div>
+            <div id="demoNote" class="demo-note" hidden><b>Sitio de demostración.</b> Aquí <b>no se cobra nada</b> ni se envía ningún pedido. Puedes recorrer todo el proceso para ver cómo funciona.</div>
             <div id="paypal"></div>
             <button type="button" class="btn" id="demoBtn" hidden>Simular pedido (sin pago)</button>
             <div id="payMsg" role="alert"></div>

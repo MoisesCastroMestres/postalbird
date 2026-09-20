@@ -45,11 +45,16 @@ Una web estática no tiene servidor, así que los pedidos te llegan **por correo
 Cada pedido llega con todos los datos, la dedicatoria y **un enlace para imprimirlo**. Si el correo automático fallara
 después de un pago, el cliente ve un botón para enviarte el pedido a mano, así que no se pierde ninguno.
 
-### 3. Datos legales
+### 3. Datos legales y modo demostración
 
-En `aviso-legal.html`, `privacidad.html` y `condiciones.html` hay campos **marcados en amarillo**
-(tu nombre o razón social, NIF, domicilio, si los precios llevan IVA, plazo de envío, proveedor de formularios).
-Complétalos y borra el recuadro «Borrador para completar». Son plantillas orientativas: conviene que las revise un profesional.
+Mientras no pongas el Client ID de PayPal, la web se muestra como **sitio de demostración**: arriba aparece la franja
+«Sitio de demostración · No se realizan compras reales» y el formulario avisa de que no se escriban datos reales.
+Al añadir el Client ID, esos avisos **desaparecen solos**.
+
+Las páginas `aviso-legal.html`, `privacidad.html` y `condiciones.html` llevan textos neutros del tipo
+«se indicarán al abrir la tienda» y un recuadro de «Sitio de demostración». Cuando abras la tienda de verdad,
+busca esas frases y sustitúyelas por tus datos reales (titular, NIF, domicilio, IVA, plazo de envío, proveedor de formularios)
+y borra el recuadro. Son plantillas orientativas: conviene que las revise un profesional.
 
 ## Cómo trabajas con un pedido (imprimir)
 
